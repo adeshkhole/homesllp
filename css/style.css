@@ -26,10 +26,13 @@ h1, h2, h3 {
  
 
 /* Hamburger Menu */
+
+/*  khi error la atr 32,34 comment line Hamburger Menu - Responsive Navigation */
+
 .hamburger {
-    /* display: ; */
-    /* display: block; */
-    /* background: #2F2F2F; */
+    display:none ;
+    display: block;
+    /* background: #eee7e7; */
     /* Dark grey for premium look   */
     font-size: 2rem;
     
@@ -40,9 +43,11 @@ h1, h2, h3 {
 @media (max-width: 768px) {
     .hamburger {
         display: block;
+
     }
     .nav-menu {
         display: none; /* Default hidden on mobile */
+        flex-direction: column;
     }
     .nav-menu.active {
         display: flex; /* Show on toggle */
@@ -688,11 +693,16 @@ h1, h2, h3 {
         gap: 1.2rem;
         position: absolute;
         top: 100%;
+        right: 0;
         left: 0;
         width: 100%;
-        background: #2F2F2F;
-        box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        background: #F5F5F5;
+        border: 1px solid rgba(235, 232, 232, 0.2);
+        box-shadow: 0 5px 15px rgba(235, 232, 232, 0.2);
+        backdrop-filter: blur(10px);
+        
         padding: 1.5rem;
+
     }
 
     .nav-menu.active {

@@ -88,17 +88,25 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 // ---------- Inquiry Form (Popup) ----------
+//1st popup form submission handling
+
+// 
+//2nd popup form submission handling
+
 document.getElementById('inquiry-form')?.addEventListener('submit', (e) => {
     e.preventDefault();
     const form = document.querySelector('.popup-content form');
+    const submitBtn = form.querySelector('button[type="submit"]');
+    submitBtn.disabled = true; // Disable button to prevent multiple clicks
     const name = form.querySelector("input[name='name']").value;
     const mobile = form.querySelector("input[name='mobile']").value;
     const email = form.querySelector("input[name='email']").value || 'N/A';
     const message = form.querySelector("textarea[name='message']").value || 'N/A';
     const formType = 'Pop-up Inquiry';
 
+
     const formData = { name, mobile, email, message, formType };
-    console.log('Form Data:', formData); // Debug: Check data
+    console.log('Form Data:', formData);
 
     fetch('https://script.google.com/macros/s/AKfycbyzvQ8DdvfdTijSs02zxiRiLQZNAksUKdByLqQ_mjsCplFUNpcXAdDCzxT4hu5lAeuV/exec', {
         method: 'POST',
@@ -107,24 +115,112 @@ document.getElementById('inquiry-form')?.addEventListener('submit', (e) => {
         body: JSON.stringify(formData)
     })
     .then(response => {
-        console.log('Response:', response); // Debug: Check response
+        console.log('Response:', response);
         const thanksMsg = document.querySelector('.thanks-msg');
         if (form && thanksMsg) {
             form.style.display = 'none';
             thanksMsg.style.display = 'block';
             form.reset();
-            setTimeout(() => alert('Thank you! Your inquiry is saved. We will contact you soon.'), 100);
+            setTimeout(() => {
+                submitBtn.disabled = false; // Re-enable button after process
+                alert('Thank you! Your inquiry is saved. We will contact you soon.');
+            }, 100);
         }
     })
     .catch(err => {
-        console.error('Error:', err); // Debug: Log errors
+        console.error('Error:', err);
+        submitBtn.disabled = false; // Re-enable on error
         alert('Error: Please try again. Check console.');
     });
 });
+
 // ---------- Contact Page Form ----------
+// document.getElementById('contact-form')?.addEventListener('submit', (e) => {
+//     e.preventDefault();
+//     alert('Inquiry sent! Thank you.');
+// });
+
+// ---------- Contact Page Form ----------
+//1st contact form submission handling
+
+
+// document.getElementById('contact-form')?.addEventListener('submit', (e) => {
+//     e.preventDefault();
+//     const form = document.getElementById('contact-form');
+//     const name = form.querySelector("input[name='name']").value;
+//     const mobile = form.querySelector("input[name='mobile']").value;
+//     const email = form.querySelector("input[name='email']").value || 'N/A';
+//     const message = form.querySelector("textarea[name='message']").value || 'N/A';
+//     const formType = 'Contact Form';
+
+//     const formData = { name, mobile, email, message, formType };
+//     console.log('Form Data:', formData);
+
+//     fetch('https://script.google.com/macros/s/AKfycbyzvQ8DdvfdTijSs02zxiRiLQZNAksUKdByLqQ_mjsCplFUNpcXAdDCzxT4hu5lAeuV/exec', {
+//         method: 'POST',
+//         mode: 'no-cors',
+//         headers: { 'Content-Type': 'application/json' },
+//         body: JSON.stringify(formData)
+//     })
+//     .then(response => {
+//         console.log('Response:', response);
+//         const thanksMsg = document.createElement('div');
+//         thanksMsg.className = 'thanks-msg';
+//         thanksMsg.innerHTML = '<p>Thank you! Your inquiry is saved. We will contact you soon.</p>';
+//         form.parentNode.insertBefore(thanksMsg, form.nextSibling);
+//         form.style.display = 'none';
+//         form.reset();
+//         setTimeout(() => thanksMsg.style.display = 'none', 100); // 0.1 seconds
+
+//     })
+//     .catch(err => {
+//         console.error('Error:', err);
+//         alert('Error: Please try again. Check console.');
+//     });
+// });
+
+
+
+
+//2nd contact form submission handling
 document.getElementById('contact-form')?.addEventListener('submit', (e) => {
     e.preventDefault();
-    alert('Inquiry sent! Thank you.');
+    const form = document.getElementById('contact-form');
+    const submitBtn = form.querySelector('button[type="submit"]');
+    submitBtn.disabled = true; // Disable button to prevent multiple clicks
+    const name = form.querySelector("input[name='name']").value;
+    const mobile = form.querySelector("input[name='mobile']").value;
+    const email = form.querySelector("input[name='email']").value || 'N/A';
+    const message = form.querySelector("textarea[name='message']").value || 'N/A';
+    const formType = 'Contact Form';
+
+    const formData = { name, mobile, email, message, formType };
+    console.log('Form Data:', formData);
+
+    fetch('https://script.google.com/macros/s/AKfycbyzvQ8DdvfdTijSs02zxiRiLQZNAksUKdByLqQ_mjsCplFUNpcXAdDCzxT4hu5lAeuV/exec', {
+        method: 'POST',
+        mode: 'no-cors',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(formData)
+    })
+    .then(response => {
+        console.log('Response:', response);
+        const thanksMsg = document.createElement('div');
+        thanksMsg.className = 'thanks-msg';
+        thanksMsg.innerHTML = '<p>Thank you! Your inquiry is saved. We will contact you soon.</p>';
+        form.parentNode.insertBefore(thanksMsg, form.nextSibling);
+        form.style.display = 'none';
+        form.reset();
+        setTimeout(() => {
+            submitBtn.disabled = false; // Re-enable button after 5 seconds
+            thanksMsg.style.display = 'none';
+        }, 5000);
+    })
+    .catch(err => {
+        console.error('Error:', err);
+        submitBtn.disabled = false; // Re-enable on error
+        alert('Error: Please try again. Check console.');
+    });
 });
 
 // ---------- Navbar Scroll Effect ----------
@@ -152,6 +248,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         hamburger.addEventListener('click', () => {
             navMenu.classList.toggle('active');
+            hamburger.classList.toggle('active');
         });
 
         // Close menu when link clicked
@@ -185,10 +282,12 @@ document.addEventListener("DOMContentLoaded", () => {
     if (localStorage.getItem("theme") === "dark") {
         body.classList.add("dark-mode");
         toggleBtn.textContent = "🌞";
+
     }
 
     toggleBtn.addEventListener("click", () => {
         body.classList.toggle("dark-mode");
+
 
         if (body.classList.contains("dark-mode")) {
             toggleBtn.textContent = "🌞";
@@ -196,7 +295,9 @@ document.addEventListener("DOMContentLoaded", () => {
         } else {
             toggleBtn.textContent = "🌙";
             localStorage.setItem("theme", "light");
+
         }
+        
     });
 });
 
