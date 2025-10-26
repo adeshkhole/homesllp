@@ -3,7 +3,6 @@
 // ========================
 
 // ---------- Banner Slideshow (optional) ----------
-
 const slides = document.querySelectorAll('.hero-slide');
 let currentSlide = 0;
 
@@ -48,6 +47,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const popup = document.getElementById("popup");
     const closeBtn = document.querySelector(".close");
     const ctaBtn = document.querySelector(".cta-btn"); // Button on homepage
+    const enquireNowBtn = document.querySelector(".enquire-now-btn");
 
     // Auto show popup after 3 seconds only on Home Page
     if ((window.location.pathname.includes("index.html") || window.location.pathname === "/") && popup) {
@@ -66,7 +66,6 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     // Open popup with left Enquire Now button
-    const enquireNowBtn = document.querySelector(".enquire-now-btn");
     if (enquireNowBtn && popup) {
         enquireNowBtn.addEventListener("click", (e) => {
             e.preventDefault();
@@ -92,21 +91,36 @@ document.addEventListener("DOMContentLoaded", () => {
 document.getElementById('inquiry-form')?.addEventListener('submit', (e) => {
     e.preventDefault();
     const form = document.querySelector('.popup-content form');
-    const input = form.querySelector("input");
-    const textarea = form.querySelector("textarea");
-    // Here you can add code to send the form data to your server if needed
+    const name = form.querySelector("input[name='name']").value;
+    const mobile = form.querySelector("input[name='mobile']").value;
+    const email = form.querySelector("input[name='email']").value || 'N/A';
+    const message = form.querySelector("textarea[name='message']").value || 'N/A';
+    const formType = 'Pop-up Inquiry';
 
-    // Show thank you message
-    const thanksMsg = document.querySelector('.thanks-msg');
-    if (form && thanksMsg) {
-        form.style.display = 'none';
-        thanksMsg.style.display = 'block';
-        input.value = "";
-        textarea.value = "";
-        setTimeout(() => alert('Thank you! We will contact you soon.'), 100);
-    }
+    const formData = { name, mobile, email, message, formType };
+    console.log('Form Data:', formData); // Debug: Check data
+
+    fetch('https://script.google.com/macros/s/AKfycbyzvQ8DdvfdTijSs02zxiRiLQZNAksUKdByLqQ_mjsCplFUNpcXAdDCzxT4hu5lAeuV/exec', {
+        method: 'POST',
+        mode: 'no-cors',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(formData)
+    })
+    .then(response => {
+        console.log('Response:', response); // Debug: Check response
+        const thanksMsg = document.querySelector('.thanks-msg');
+        if (form && thanksMsg) {
+            form.style.display = 'none';
+            thanksMsg.style.display = 'block';
+            form.reset();
+            setTimeout(() => alert('Thank you! Your inquiry is saved. We will contact you soon.'), 100);
+        }
+    })
+    .catch(err => {
+        console.error('Error:', err); // Debug: Log errors
+        alert('Error: Please try again. Check console.');
+    });
 });
-
 // ---------- Contact Page Form ----------
 document.getElementById('contact-form')?.addEventListener('submit', (e) => {
     e.preventDefault();
