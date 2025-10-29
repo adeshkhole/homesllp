@@ -214,7 +214,7 @@ document.getElementById('contact-form')?.addEventListener('submit', (e) => {
         setTimeout(() => {
             submitBtn.disabled = false; // Re-enable button after 5 seconds
             thanksMsg.style.display = 'none';
-        }, 5000);
+        }, 100); // 0.1 seconds
     })
     .catch(err => {
         console.error('Error:', err);
@@ -319,6 +319,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     if (otherSubList) {
                         otherSubList.classList.add('hidden');
                         otherSubList.classList.remove('show');
+                    
                     }
                 }
             });
