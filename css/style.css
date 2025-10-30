@@ -148,11 +148,24 @@ h1, h2, h3 {
 /* Hero Section - Premium Background */
 
 /* ---------- Premium Hero Section (Seamless with Navbar) ---------- */
+/* .hero {
+    position: relative;
+    height: 100vh;
+    background-image: url('images/bgg.jpg'); 
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+} */
+
+/* Hero Section - Premium Background */
 .hero {
     position: relative;
     height: 100vh;
-    background-image: url('images/bgg.jpg'); /* adjust path if needed */
-    background-size: cover;
+    background-size: contain; /* Changed from cover to contain for full visibility */
     background-position: center;
     background-attachment: fixed;
     display: flex;
@@ -509,11 +522,23 @@ h1, h2, h3 {
     transform: translateY(-12px); 
     box-shadow: 0 12px 30px rgba(212,175,55,0.25); 
 }
-.project-card img { 
+/* .project-card img { 
     width: 100%; 
     height: 400px; 
     object-fit: cover; 
-}
+} */
+
+/* .project-card img {
+    width: 100%;
+    height: 250px;
+    object-fit: contain; /* Changed from cover to contain for full image */
+ */
+
+
+.project-card img {
+        height: 150px; /* Reduced height on mobile */
+        object-fit: contain;
+    }
 .project-card h3 { 
     padding: 1.5rem; 
     color: #D4AF37; 
@@ -686,7 +711,7 @@ h1, h2, h3 {
 }
 
 /* Responsive Adjustments */
-@media (max-width: 768px) {
+/* @media (max-width: 768px) {
     .nav-menu {
         display: none;
         flex-direction: column;
@@ -703,7 +728,8 @@ h1, h2, h3 {
         
         padding: 1.5rem;
 
-    }
+    } */
+
 
     .nav-menu.active {
         display: flex;
@@ -715,7 +741,7 @@ h1, h2, h3 {
         color: #D4AF37;
         cursor: pointer;
     }
-}
+
 /* ---------- ABOUT PAGE ---------- */
 
 /* ---------- About Page Premium Styles ---------- */
@@ -1404,13 +1430,16 @@ opacity: 0;
 
 /* ---------- END OF DARK MODE STYLES ---------- */
 /* ---------- Hero Slideshow ---------- */
-.hero-slideshow {
+/* .hero-slideshow {
     position: relative;
     height: 100vh;
     overflow: hidden;
-}
+} */
 
 .hero-slide {
+        background-size: contain;
+    }
+/* .hero-slide {
     position: absolute;
     top: 0; left: 0;
     width: 100%; height: 100%;
@@ -1418,9 +1447,20 @@ opacity: 0;
     background-position: center;
     opacity: 0;
     transition: opacity 1.5s ease-in-out;
+} */
+
+.hero-slide {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background-size: contain; /* Changed for mobile */
+    background-position: center;
+    opacity: 0;
+    transition: opacity 1.5s ease-in-out;
 }
 .hero-slide.active {
     opacity: 1;
+
 }
 
 /* ---------- Popup (Centered with Blur) ---------- */
@@ -1495,7 +1535,7 @@ opacity: 0;
     gap: 0.5rem;
     cursor: pointer;
     padding: 0.5rem;
-    transition: background 0.3s;
+    /* transition: background 0.3s; */
 }
 .location-item:hover {
     background: #f8f9fa;
@@ -1517,10 +1557,15 @@ opacity: 0;
     display: block;
 }
 
-@media (max-width: 768px) {
+/* @media (max-width: 768px) {
     .location-benefits h2 { font-size: 1.8rem; }
     .location-item { font-size: 1rem; }
     .sub-list { margin-left: 1rem; }
+} */
+ @media (max-width: 768px) {
+    .hero {
+        height: 80vh; /* Reduced height for mobile */
+        background-size: contain;
+        background-position: center;
+    }
 }
-
-
